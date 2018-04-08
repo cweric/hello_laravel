@@ -160,7 +160,6 @@ return [
         Illuminate\Auth\Passwords\PasswordResetServiceProvider::class,
         Illuminate\Session\SessionServiceProvider::class,
         //Illuminate\Translation\TranslationServiceProvider::class,
-        Overtrue\LaravelLang\TranslationServiceProvider::class,
         Illuminate\Validation\ValidationServiceProvider::class,
         Illuminate\View\ViewServiceProvider::class,
 
@@ -178,6 +177,17 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
 
+        /*
+         * 第三方套件 from composer
+         */
+
+        // 語系套件 取代內建的 Illuminate\Translation\TranslationServiceProvider::class
+        // https://github.com/overtrue/laravel-lang/blob/master/README_CN.md
+        Overtrue\LaravelLang\TranslationServiceProvider::class,
+
+        // Laravel IDE Helper
+        // http://oomusou.io/phpstorm/phpstorm-ide-helper/
+        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
