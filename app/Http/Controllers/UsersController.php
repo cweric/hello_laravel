@@ -10,11 +10,27 @@ use Illuminate\Support\Facades\Auth;
 class UsersController extends Controller
 {
     /**
+     * UsersController constructor.
+     */
+    public function __construct()
+    {
+        $this->middleware('auth', [
+            'except' => ['index', 'show', 'create', 'store']
+        ]);
+
+        $this->middleware('guest', [
+            'only' => ['create']
+        ]);
+    }
+
+    /**
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function create()
+    public function index()
     {
-        return view('users.create');
+        $users = User::paginate(10);
+
+        return view('users.index', compact('users'));
     }
 
     /**
@@ -25,6 +41,14 @@ class UsersController extends Controller
     public function show(User $user)
     {
         return view('users.show', compact('user'));
+    }
+
+    /**
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('users.create');
     }
 
     /**
@@ -51,5 +75,63 @@ class UsersController extends Controller
         session()->flash('success', '欢迎，您将在这里开启一段新的旅程~');
 
         return redirect()->route('users.show', [$user]);
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function edit(User $user)
+    {
+        $this->authorize('update', $user);
+
+        return view('users.edit', compact('user'));
+    }
+
+    /**
+     * @param \App\Models\User         $user
+     * @param \Illuminate\Http\Request $request
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Illuminate\Auth\Access\AuthorizationException
+     */
+    public function update(User $user, Request $request)
+    {
+        $this->validate($request, [
+            'name' => 'required|max:50',
+            'password' => 'nullable|confirmed|min:6'
+        ]);
+
+        $this->authorize('update', $user);
+
+        $data = [];
+        $data['name'] = $request->name;
+        if ($request->password) {
+            $data['password'] = bcrypt($request->password);
+        }
+        $user->update($data);
+
+        session()->flash('success', '个人资料更新成功！');
+
+        return redirect()->route('users.show', $user->id);
+    }
+
+    /**
+     * @param \App\Models\User $user
+     *
+     * @return \Illuminate\Http\RedirectResponse
+     * @throws \Exception
+     */
+    public function destroy(User $user)
+    {
+        $this->authorize('destroy', $user);
+
+        $user->delete();
+
+        session()->flash('success', '成功删除用户！');
+
+        return back();
     }
 }
