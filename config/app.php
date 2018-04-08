@@ -185,9 +185,6 @@ return [
         // https://github.com/overtrue/laravel-lang/blob/master/README_CN.md
         Overtrue\LaravelLang\TranslationServiceProvider::class,
 
-        // Laravel IDE Helper
-        // http://oomusou.io/phpstorm/phpstorm-ide-helper/
-        Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
     ],
 
     /*
