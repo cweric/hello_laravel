@@ -20,8 +20,8 @@ class CreateTblCustomerTable extends Migration
             $table->char('status', 1)->nullable()->comment('使用狀態');
             $table->integer('create_systemAccount_ID')->default(0)->comment('建立人員序號');
             $table->integer('systemAccount_ID')->default(0)->comment('維護人員序號');
-            $table->dateTime('createDateTime')->default('0000-00-00 00:00:00')->comment('資料建立日期');
-            $table->dateTime('updateDateTime')->default('0000-00-00 00:00:00')->comment('資料更新日期');
+            $table->dateTime('createDateTime')->comment('資料建立日期');
+            $table->dateTime('updateDateTime')->comment('資料更新日期');
         });
     }
 

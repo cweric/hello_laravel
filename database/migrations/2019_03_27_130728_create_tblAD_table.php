@@ -41,10 +41,10 @@ class CreateTblADTable extends Migration
             $table->char('status', 1)->nullable()->index('titleUrl_Status')->comment('使用狀態 (y:開放, n:關閉, x:刪除)');
             $table->integer('create_systemAccount_ID')->unsigned()->comment('建立人員序號');
             $table->integer('systemAccount_ID')->unsigned()->default(0)->comment('維護人員序號');
-            $table->dateTime('startDateTime')->default('0000-00-00 00:00:00')->comment('上檔日期');
-            $table->dateTime('endDateTime')->default('0000-00-00 00:00:00')->comment('下檔日期');
-            $table->dateTime('createDateTime')->default('0000-00-00 00:00:00')->comment('資料建立日期');
-            $table->dateTime('updateDateTime')->default('0000-00-00 00:00:00')->comment('資料更新日期');
+            $table->dateTime('startDateTime')->comment('上檔日期');
+            $table->dateTime('endDateTime')->comment('下檔日期');
+            $table->dateTime('createDateTime')->comment('資料建立日期');
+            $table->dateTime('updateDateTime')->comment('資料更新日期');
         });
     }
 

@@ -21,7 +21,7 @@ class CreateTblADCategoryLogTable extends Migration
             $table->text('sqlData', 65535)->nullable()->comment('SQL語法');
             $table->string('comment')->nullable()->comment('備註');
             $table->string('userIP', 15)->nullable()->comment('使用者遠端位址');
-            $table->dateTime('createDateTime')->default('0000-00-00 00:00:00')->comment('資料建立日期');
+            $table->dateTime('createDateTime')->comment('資料建立日期');
         });
     }
 
